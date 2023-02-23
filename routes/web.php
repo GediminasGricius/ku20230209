@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CalcController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/students',[StudentController::class, 'index'])->name('students.index');
+Route::get('/students/create',[ StudentController::class, 'create'])->name('students.create');
+Route::post('/students/save',[ StudentController::class, 'save'])->name('students.save');
+Route::get('/students/{id}/edit',[ StudentController::class, 'edit'])->name('students.edit');
+Route::post('/students/{id}/update',[StudentController::class,'update'])->name('students.update');
+Route::get('/students/{id}/delete',[StudentController::class,'delete'])->name('students.delete');
+
+Route::resource('courses', CourseController::class);
 
 Route::get('/calc/',[CalcController::class, 'showForm' ])->name("form");
 Route::post('/calc/result',[CalcController::class, 'result' ])->name("result");

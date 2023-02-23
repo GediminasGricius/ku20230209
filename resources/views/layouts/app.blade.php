@@ -28,6 +28,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a href="{{ route('students.index') }}" class="nav-link">Studentai</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('courses.index') }}"  class="nav-link">Grupes</a>
+                        </li>
 
                     </ul>
 

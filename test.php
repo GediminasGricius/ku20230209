@@ -1,14 +1,15 @@
 <?php
-class Duomenys{
-    public $x=10;
+$x=5;
 
 
-    public function __get(string $name)
-    {
-        return $_GET[$name];
-    }
-
+if ($x==5){
+    echo "Lygus";
 }
 
-$d=new Duomenys();
-$d->vardas="Jonas";
+
+
+if ($x==5):
+
+
+
+    endif;;
