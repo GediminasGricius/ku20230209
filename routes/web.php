@@ -23,6 +23,8 @@ Route::post('/students/save',[ StudentController::class, 'save'])->name('student
 Route::get('/students/{id}/edit',[ StudentController::class, 'edit'])->name('students.edit');
 Route::post('/students/{id}/update',[StudentController::class,'update'])->name('students.update');
 Route::get('/students/{id}/delete',[StudentController::class,'delete'])->name('students.delete');
+Route::post('/students/search',[StudentController::class,'search'])->name('students.search');
+
 
 Route::resource('courses', CourseController::class);
 

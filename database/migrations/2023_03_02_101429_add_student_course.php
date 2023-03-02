@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('students', function (Blueprint $table) {
-            $table->id();
-            $table->string("name", 64);
-            $table->string("surname", 64);
-            $table->integer("year")->nullable()->default(null);
+        Schema::table('students', function (Blueprint $table) {
+           $table->unsignedBigInteger("course_id")->nullable()->default(null);
 
-
-            $table->timestamps();
+           $table->foreign('course_id')->references('id')->on('courses');
         });
     }
 
@@ -31,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('students');
+        Schema::table('students', function (Blueprint $table) {
+            $table->dropConstrainedForeignId("course_id");
+        });
     }
 };

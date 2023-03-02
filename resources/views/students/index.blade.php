@@ -6,13 +6,36 @@
                 <div class="card">
                     <div class="card-header">Studentu sąrašas</div>
                     <div class="card-body">
-                        <a href="{{ route('students.create') }}" class="btn btn-success float-end">Pridėti</a>
+                        <div class="clearfix">
+                            <a href="{{ route('students.create') }}" class="btn btn-success float-end">Pridėti</a>
+                        </div>
+                        <form method="post" action="{{ route("students.search") }}">
+                            @csrf
+                            <div class="mb-3">
+                                <label class="form-label">Vardas</label>
+                                <input class="form-control" name="name" value="{{ $filter->name }}" >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Metai</label>
+                                <select class="form-select" name="year">
+                                    <option value="" {{ ($filter->year==null)?'selected':'' }}></option>
+                                    @for ($i=2015; $i<=2023; $i++)
+                                        <option value="{{ $i }}" {{ ($filter->year==$i)?'selected':'' }}> {{ $i }}</option>
+                                    @endfor
+
+                                </select>
+                            </div>
+                            <button class="btn btn-info">Ieškoti</button>
+                        </form>
+                        <hr>
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Vardas</th>
                                     <th>Pavardė</th>
                                     <th>Metai</th>
+                                    <th>Kursas</th>
+                                    <th>Pazymai</th>
                                     <th>Veiksmai</th>
                                 </tr>
                             </thead>
@@ -22,6 +45,12 @@
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->surname }}</td>
                                 <td>{{ $student->year }}</td>
+                                <td>{{ $student->course->name }}</td>
+                                <td>
+                                    @foreach($student->grades as $grade)
+                                        {{ $grade->grade }}
+                                    @endforeach
+                                </td>
                                 <td>
                                     <a class="btn btn-info" href="{{ route('students.edit', $student->id) }}">Redaguoti</a>
                                     <a class="btn btn-danger" href="{{route('students.delete',$student->id)}}">Ištrinti</a>

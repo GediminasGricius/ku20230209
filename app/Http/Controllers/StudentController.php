@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+
+        $filter=$request->session()->get('filterStudents', (object)['name'=>null,'year'=>null]);
+
+        $students=Student::with(['course','grades'])->filter($filter)->orderBy("name")->get();
+
         return view("students.index",[
-            "students"=>Student::orderBy("name")->get()
+            "students"=>$students,
+             "filter"=>$filter
             ]
         );
     }
@@ -46,5 +52,15 @@ class StudentController extends Controller
     public function delete($id){
         Student::destroy($id);
         return redirect()->route("students.index");
+    }
+
+    public function search(Request $request){
+        $filterStudents=new \stdClass();
+        $filterStudents->name=$request->name;
+        $filterStudents->year=$request->year;
+
+        $request->session()->put('filterStudents', $filterStudents);
+        return redirect()->route('students.index');
+
     }
 }

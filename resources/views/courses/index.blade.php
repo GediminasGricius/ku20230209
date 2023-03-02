@@ -11,6 +11,7 @@
                             <thead>
                                 <tr>
                                     <th>Pavadinimas</th>
+                                    <th>Studentai</th>
                                     <th></th>
                                     <th></th>
 
@@ -20,6 +21,11 @@
                             @foreach($courses as $course)
                             <tr>
                                 <td>{{ $course->name }}</td>
+                                <td>
+                                    @foreach($course->students as $student)
+                                            {{ $student->name }} {{ $student->surname }}<br>
+                                    @endforeach
+                                </td>
                                 <td>
                                     <a class="btn btn-info" href="{{ route('courses.edit', $course->id) }}">Redaguoti</a>
                                 </td>
