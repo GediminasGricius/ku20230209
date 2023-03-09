@@ -4,7 +4,7 @@
         <div class="row ">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Kursu sąrašas</div>
+                    <div class="card-header">{{ __("messages.coursesList") }}</div>
                     <div class="card-body">
                         <a href="{{ route('courses.create') }}" class="btn btn-success float-end">Pridėti</a>
                         <table class="table">
@@ -20,7 +20,7 @@
                             <tbody>
                             @foreach($courses as $course)
                             <tr>
-                                <td>{{ $course->name }}</td>
+                                <td>žirkė :{{ $course->name }}</td>
                                 <td>
                                     @foreach($course->students as $student)
                                             {{ $student->name }} {{ $student->surname }}<br>

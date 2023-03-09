@@ -35,6 +35,13 @@
                             <a href="{{ route('courses.index') }}"  class="nav-link">Grupes</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{ route('setLanguage','lt') }}" class="nav-link">LT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('setLanguage','en') }}" class="nav-link">EN</a>
+                        </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -80,5 +87,6 @@
             @yield('content')
         </main>
     </div>
+Musu telefonas: [[tel]]
 </body>
 </html>

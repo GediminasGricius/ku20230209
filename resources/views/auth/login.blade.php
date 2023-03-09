@@ -63,6 +63,9 @@
                                     </a>
                                 @endif
                             </div>
+                            <div>
+                                Susisiekite su administracija tel. nr.: [[tel]]
+                            </div>
                         </div>
                     </form>
                 </div>

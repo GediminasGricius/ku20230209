@@ -4,11 +4,13 @@
         <div class="row ">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Studentu sąrašas</div>
+                    <div class="card-header">{{ __("messages.studentstList") }}</div>
                     <div class="card-body">
+                        @if (Auth::user()!=null)
                         <div class="clearfix">
                             <a href="{{ route('students.create') }}" class="btn btn-success float-end">Pridėti</a>
                         </div>
+                        @endif
                         <form method="post" action="{{ route("students.search") }}">
                             @csrf
                             <div class="mb-3">
@@ -42,7 +44,7 @@
                             <tbody>
                             @foreach($students as $student)
                             <tr>
-                                <td>{{ $student->name }}</td>
+                                <td> {{ $student->name }}</td>
                                 <td>{{ $student->surname }}</td>
                                 <td>{{ $student->year }}</td>
                                 <td>{{ $student->course->name }}</td>

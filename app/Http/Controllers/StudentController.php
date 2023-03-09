@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class StudentController extends Controller
 {
+    public function __construct(){
+
+    }
     public function index(Request $request){
 
         $filter=$request->session()->get('filterStudents', (object)['name'=>null,'year'=>null]);
@@ -61,6 +65,6 @@ class StudentController extends Controller
 
         $request->session()->put('filterStudents', $filterStudents);
         return redirect()->route('students.index');
-
     }
+
 }

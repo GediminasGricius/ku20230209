@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class CourseController extends Controller
 {
@@ -12,8 +13,9 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         return view("courses.index",[
            "courses"=>Course::with('students')->get()
         ]);
