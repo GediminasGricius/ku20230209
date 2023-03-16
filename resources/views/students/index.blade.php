@@ -47,7 +47,13 @@
                                 <td> {{ $student->name }}</td>
                                 <td>{{ $student->surname }}</td>
                                 <td>{{ $student->year }}</td>
-                                <td>{{ $student->course->name }}</td>
+                                <td>
+                                    @if ($student->course==null)
+                                        Grupė nėra priskirta
+                                    @else
+                                        {{ $student->course->name }}
+                                    @endif
+                                   </td>
                                 <td>
                                     @foreach($student->grades as $grade)
                                         {{ $grade->grade }}

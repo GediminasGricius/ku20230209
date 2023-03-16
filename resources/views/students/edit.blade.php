@@ -10,16 +10,21 @@
                            @csrf
                            <div class="mb-3">
                                <label class="form-label">Vardas:</label>
-                               <input class="form-control" name="name" type="text" value="{{ $student->name }}" required>
+                               <input class="form-control @error('name') is-invalid @enderror" name="name" type="text" value="{{ old('name')?: $student->name  }}" >
+                               <div class="invalid-feedback">@error('name') {{ $message }} @enderror</div>
                            </div>
                            <div class="mb-3">
                                <label class="form-label">Pavardė:</label>
-                               <input class="form-control" name="surname" type="text" value="{{ $student->surname }}" required>
+                               <input class="form-control @error('surname') is-invalid @enderror" name="surname" type="text"  value="{{ old('surname')?:$student->surname  }}" >
+                               <div class="invalid-feedback">@error('surname') {{ $message }} @enderror</div>
                            </div>
                            <div class="mb-3">
                                <label class="form-label">Amžius:</label>
-                               <input class="form-control" name="year" type="text" value="{{ $student->year }}">
+                               <input class="form-control @error('year') is-invalid @enderror" name="year" type="text" value="{{ old('year')?:$student->year }}" >
+                               <div class="invalid-feedback">@error('year') {{ $message }} @enderror</div>
                            </div>
+
+
                            <button class="btn btn-success"> Išsaugoti</button>
                        </form>
                     </div>

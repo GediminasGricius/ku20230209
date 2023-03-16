@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -28,7 +29,8 @@ class StudentController extends Controller
         return view("students.creat");
     }
 
-    public function save(Request $request){
+    public function save(StudentRequest $request){
+        $request->validate();
         $student=new Student();
         $student->name=$request->name;
         $student->surname=$request->surname;
@@ -44,7 +46,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function update($id, Request $request){
+    public function update($id, StudentRequest $request){
         $student=Student::find($id);
         $student->name=$request->name;
         $student->surname=$request->surname;
