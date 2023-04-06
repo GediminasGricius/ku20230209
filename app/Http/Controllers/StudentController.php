@@ -51,6 +51,25 @@ class StudentController extends Controller
         $student->name=$request->name;
         $student->surname=$request->surname;
         $student->year=$request->year;
+
+        if ($request->file("image")!=null){
+            if ($student->image!=null){
+                unlink(storage_path()."/app/public/students/".$student->image);
+            }
+
+            $request->file("image")->store("/public/students");
+            $student->image=$request->file("image")->hashName();
+        }
+        if ($request->file("agreement")!=null){
+            if ($student->agreement!=null){
+                unlink(storage_path()."/app/agreements/".$student->agreement);
+            }
+
+            $request->file("agreement")->store("/agreement");
+            $student->agreement=$request->file("agreement")->hashName();
+        }
+
+        //$request->file("image")->storeAs("/public/students", $request->file("image")->getClientOriginalName());
         $student->save();
         return redirect()->route("students.index");
     }
@@ -67,6 +86,14 @@ class StudentController extends Controller
 
         $request->session()->put('filterStudents', $filterStudents);
         return redirect()->route('students.index');
+    }
+
+    public function getAgreement($id){
+        $student=Student::find($id);
+        if ($student->agreement==null){
+            return redirect()->route("students.index");
+        }
+        return response()->download(storage_path().'/app/agreement/'.$student->agreement);
     }
 
 }

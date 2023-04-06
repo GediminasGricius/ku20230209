@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-header">Studentu sąrašas</div>
                     <div class="card-body">
-                       <form method="post" action="{{ route("students.update", $student->id) }}">
+                       <form method="post" action="{{ route("students.update", $student->id) }}" enctype="multipart/form-data">
                            @csrf
                            <div class="mb-3">
                                <label class="form-label">Vardas:</label>
@@ -23,8 +23,17 @@
                                <input class="form-control @error('year') is-invalid @enderror" name="year" type="text" value="{{ old('year')?:$student->year }}" >
                                <div class="invalid-feedback">@error('year') {{ $message }} @enderror</div>
                            </div>
+                           <div class="mb-3">
+                               <label class="form-label">Nuotrauka:</label>
+                               <input class="form-control" type="file" name="image" >
 
+                           </div>
 
+                           <div class="mb-3">
+                               <label class="form-label">Sutartis:</label>
+                               <input class="form-control" type="file" name="agreement" >
+
+                           </div>
                            <button class="btn btn-success"> Išsaugoti</button>
                        </form>
                     </div>

@@ -6,6 +6,7 @@
                 <div class="card">
                     <div class="card-header">{{ __("messages.coursesList") }}</div>
                     <div class="card-body">
+                        <img src="{{ asset("/storage/image-analysis.png") }}" style="width:100px;">
                         <a href="{{ route('courses.create') }}" class="btn btn-success float-end">Pridėti</a>
                         <table class="table">
                             <thead>
@@ -20,7 +21,7 @@
                             <tbody>
                             @foreach($courses as $course)
                             <tr>
-                                <td>žirkė :{{ $course->name }}</td>
+                                <td>{{ $course->name }}</td>
                                 <td>
                                     @foreach($course->students as $student)
                                             {{ $student->name }} {{ $student->surname }}<br>

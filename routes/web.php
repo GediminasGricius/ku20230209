@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/students/{id}/delete',[StudentController::class,'delete'])->name('students.delete')->middleware('suaugusiems');
     Route::resource('courses', CourseController::class);
 
-
+    Route::get('/students/{id}/agreement',[StudentController::class,'getAgreement'])->name('students.getAgreement');
 });
 
 Route::get('/students',[StudentController::class, 'index'])->name('students.index');
@@ -48,3 +48,4 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/setLanguage/{language}', [LanguageController::class, 'setLanguage'])->name("setLanguage");
+

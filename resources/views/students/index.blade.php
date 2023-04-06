@@ -33,6 +33,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>Vardas</th>
                                     <th>Pavardė</th>
                                     <th>Metai</th>
@@ -44,6 +45,11 @@
                             <tbody>
                             @foreach($students as $student)
                             <tr>
+                                <td>
+                                    @if ($student->image!==null)
+                                      <img src="{{ asset("/storage/students/".$student->image) }}" style="width:100px">
+                                    @endif
+                                </td>
                                 <td> {{ $student->name }}</td>
                                 <td>{{ $student->surname }}</td>
                                 <td>{{ $student->year }}</td>
@@ -62,6 +68,9 @@
                                 <td>
                                     <a class="btn btn-info" href="{{ route('students.edit', $student->id) }}">Redaguoti</a>
                                     <a class="btn btn-danger" href="{{route('students.delete',$student->id)}}">Ištrinti</a>
+                                    @if ($student->agreement!==null)
+                                        <a href="{{ route('students.getAgreement', $student->id) }}" class="btn btn-primary">Sutartis</a>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
