@@ -11,24 +11,27 @@
                             <a href="{{ route('students.create') }}" class="btn btn-success float-end">Pridėti</a>
                         </div>
                         @endif
-                        <form method="post" action="{{ route("students.search") }}">
-                            @csrf
-                            <div class="mb-3">
-                                <label class="form-label">Vardas</label>
-                                <input class="form-control" name="name" value="{{ $filter->name }}" >
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Metai</label>
-                                <select class="form-select" name="year">
-                                    <option value="" {{ ($filter->year==null)?'selected':'' }}></option>
-                                    @for ($i=2015; $i<=2023; $i++)
-                                        <option value="{{ $i }}" {{ ($filter->year==$i)?'selected':'' }}> {{ $i }}</option>
-                                    @endfor
+                        @can('filter')
+                            <form method="post" action="{{ route("students.search") }}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Vardas</label>
+                                    <input class="form-control" name="name" value="{{ $filter->name }}" >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Metai</label>
+                                    <select class="form-select" name="year">
+                                        <option value="" {{ ($filter->year==null)?'selected':'' }}></option>
+                                        @for ($i=2015; $i<=2023; $i++)
+                                            <option value="{{ $i }}" {{ ($filter->year==$i)?'selected':'' }}> {{ $i }}</option>
+                                        @endfor
 
-                                </select>
-                            </div>
-                            <button class="btn btn-info">Ieškoti</button>
-                        </form>
+                                    </select>
+                                </div>
+                                <button class="btn btn-info">Ieškoti</button>
+                            </form>
+                        @endcan
+
                         <hr>
                         <table class="table">
                             <thead>
@@ -66,8 +69,10 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ route('students.edit', $student->id) }}">Redaguoti</a>
-                                    <a class="btn btn-danger" href="{{route('students.delete',$student->id)}}">Ištrinti</a>
+                                    @can('edit', $student)
+                                        <a class="btn btn-info" href="{{ route('students.edit', $student->id) }}">Redaguoti</a>
+                                        <a class="btn btn-danger" href="{{route('students.delete',$student->id)}}">Ištrinti</a>
+                                    @endcan
                                     @if ($student->agreement!==null)
                                         <a href="{{ route('students.getAgreement', $student->id) }}" class="btn btn-primary">Sutartis</a>
                                     @endif

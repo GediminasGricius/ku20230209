@@ -7,7 +7,9 @@
                     <div class="card-header">{{ __("messages.coursesList") }}</div>
                     <div class="card-body">
                         <img src="{{ asset("/storage/image-analysis.png") }}" style="width:100px;">
+                        @can('create', \App\Models\Course::class)
                         <a href="{{ route('courses.create') }}" class="btn btn-success float-end">Pridėti</a>
+                        @endcan
                         <table class="table">
                             <thead>
                                 <tr>
@@ -28,14 +30,18 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a class="btn btn-info" href="{{ route('courses.edit', $course->id) }}">Redaguoti</a>
+                                    @can('update', $course)
+                                        <a class="btn btn-info" href="{{ route('courses.edit', $course->id) }}">Redaguoti</a>
+                                    @endcan
                                 </td>
                                 <td>
+                                    @can('delete', $course)
                                     <form method="post" action="{{ route("courses.destroy", $course->id) }}">
                                         @csrf
                                         @method("delete")
                                         <button class="btn btn-danger">Ištrinti</button>
                                     </form>
+                                    @endcan
                                 </td>
 
                             </tr>

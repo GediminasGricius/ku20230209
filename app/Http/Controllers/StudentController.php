@@ -16,7 +16,14 @@ class StudentController extends Controller
 
         $filter=$request->session()->get('filterStudents', (object)['name'=>null,'year'=>null]);
 
-        $students=Student::with(['course','grades'])->filter($filter)->orderBy("name")->get();
+        $students=Student::with(['course','grades']);
+
+        if ($request->user()->can("filter")){
+            $students=$students->filter($filter);
+        }
+
+        $students=$students->orderBy("name")->get();
+
 
         return view("students.index",[
             "students"=>$students,
@@ -40,14 +47,25 @@ class StudentController extends Controller
 
     }
 
-    public function edit($id){
+    public function edit($id, Request $request){
+        $student=Student::find($id);
+
+        if (! $request->user()->can('edit',$student)){
+            return redirect()->route("students.index");
+        }
+
         return view("students.edit",[
-            "student"=>Student::find($id)
+            "student"=>$student
         ]);
     }
 
     public function update($id, StudentRequest $request){
         $student=Student::find($id);
+
+        if (! $request->user()->can('edit',$student)){
+            return redirect()->route("students.index");
+        }
+
         $student->name=$request->name;
         $student->surname=$request->surname;
         $student->year=$request->year;
@@ -74,7 +92,10 @@ class StudentController extends Controller
         return redirect()->route("students.index");
     }
 
-    public function delete($id){
+    public function delete($id, Request $request){
+        if (! $request->user()->can('edit',Student::find($id))){
+            return redirect()->route("students.index");
+        }
         Student::destroy($id);
         return redirect()->route("students.index");
     }
