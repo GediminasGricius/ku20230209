@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewStudent;
 use App\Http\Requests\StudentRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -36,13 +37,16 @@ class StudentController extends Controller
         return view("students.creat");
     }
 
-    public function save(StudentRequest $request){
-        $request->validate();
+    public function save(Request $request){
+
         $student=new Student();
         $student->name=$request->name;
         $student->surname=$request->surname;
         $student->year=$request->year;
         $student->save();
+
+        NewStudent::dispatch($student);
+
         return redirect()->route("students.index");
 
     }
